@@ -14,7 +14,7 @@ namespace ASPNetCoreWebAPITraining.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("SqlServer"));
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString(StaticConfiguration.SqlServer));
         }
     }
 }
