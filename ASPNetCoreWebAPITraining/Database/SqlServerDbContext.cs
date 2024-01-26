@@ -1,17 +1,16 @@
+using ASPNetCoreWebAPITraining.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ASPNetCoreWebAPITraining.Models
+namespace ASPNetCoreWebAPITraining.Database
 {
-    public class PersonContext : DbContext
+    public class SqlServerDbContext : BaseDbContext
     {
         private readonly IConfiguration _configuration;
-        public PersonContext(DbContextOptions<PersonContext> options, IConfiguration configuration)
-            : base(options)
+        public SqlServerDbContext(DbContextOptions<SqlServerDbContext> options, IConfiguration configuration)
+            : base(options, configuration)
         {
             _configuration = configuration;
         }
-
-        public DbSet<Person> Persons { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace ASPNetCoreWebAPITraining.Migrations
+namespace ASPNetCoreWebAPITraining.SqlServerMigrations
 {
     /// <inheritdoc />
-    public partial class _20240126_InitialTableMigrations : Migration
+    public partial class _20240126_DynamicDbContextWork : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

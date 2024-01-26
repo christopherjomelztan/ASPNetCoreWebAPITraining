@@ -1,3 +1,4 @@
+using ASPNetCoreWebAPITraining.Database;
 using ASPNetCoreWebAPITraining.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,93 +9,111 @@ namespace ASPNetCoreWebAPITraining.Controllers
     [Route("api/Person")]
     public class PersonController : ControllerBase
     {
-        private readonly PersonContext _context;
+        private readonly IDbContextFactory _dbContextFactory;
 
-        public PersonController(PersonContext context)
+        public PersonController(IDbContextFactory dbContextFactory)
         {
-            _context = context;
+            _dbContextFactory = dbContextFactory;
         }
 
         // GET: api/Person
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Person>>> GetPersons()
         {
-            return await _context.Persons.ToListAsync();
+            using (var context = _dbContextFactory.CreateDbContext())
+            {
+                return await context.Persons.ToListAsync();
+            }
         }
 
         // GET: api/Person/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Person>> GetPerson(int id)
         {
-            var person = await _context.Persons.FindAsync(id);
-
-            if (person == null)
+            using (var context = _dbContextFactory.CreateDbContext())
             {
-                return NotFound();
-            }
+                var person = await context.Persons.FindAsync(id);
 
-            return person;
+                if (person == null)
+                {
+                    return NotFound();
+                }
+
+                return person;
+            }
         }
 
         // PUT: api/Person/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPerson(int id, Person person)
         {
-            if (id != person.Id)
+            using (var context = _dbContextFactory.CreateDbContext())
             {
-                return BadRequest();
-            }
-
-            _context.Entry(person).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PersonExists(id))
+                if (id != person.Id)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return NoContent();
+                context.Entry(person).State = EntityState.Modified;
+
+                try
+                {
+                    await context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PersonExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return NoContent();
+            }
         }
 
         // POST: api/Person
         [HttpPost]
         public async Task<ActionResult<Person>> PostPerson(Person person)
         {
-            _context.Persons.Add(person);
-            await _context.SaveChangesAsync();
+            using (var context = _dbContextFactory.CreateDbContext())
+            {
+                context.Persons.Add(person);
+                await context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPerson", new { id = person.Id }, person);
+                return CreatedAtAction("GetPerson", new { id = person.Id }, person);
+            }
         }
 
         // DELETE: api/Person/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePerson(int id)
         {
-            var person = await _context.Persons.FindAsync(id);
-            if (person == null)
+            using (var context = _dbContextFactory.CreateDbContext())
             {
-                return NotFound();
+                var person = await context.Persons.FindAsync(id);
+                if (person == null)
+                {
+                    return NotFound();
+                }
+
+                context.Persons.Remove(person);
+                await context.SaveChangesAsync();
+
+                return NoContent();
             }
-
-            _context.Persons.Remove(person);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
         private bool PersonExists(int id)
         {
-            return _context.Persons.Any(e => e.Id == id);
+            using (var context = _dbContextFactory.CreateDbContext())
+            {
+                return context.Persons.Any(e => e.Id == id);
+            }
         }
     }
 }

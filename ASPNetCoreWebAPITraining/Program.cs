@@ -1,12 +1,25 @@
-using ASPNetCoreWebAPITraining.Models;
+using ASPNetCoreWebAPITraining.Database;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<PersonContext>(options => 
+builder.Services.AddDbContext<MySqlDbContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("MySql"), new MySqlServerVersion(new Version(8, 3, 0)))
+);
+builder.Services.AddDbContext<SqlServerDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"))
 );
+
+
+var provider = builder.Configuration.GetValue("Provider", "Unsupported");
+
+builder.Services.AddTransient<IDbContextFactory>(_ => provider switch
+{
+    "MySql" => new MySqlDbContextFactory(builder.Configuration),
+    "SqlServer" => new SqlServerDbContextFactory(builder.Configuration),
+    _ => throw new Exception($"Unsupported provider: {provider}")
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
