@@ -14,7 +14,7 @@ namespace ASPNetCoreWebAPITraining.Database
     public BaseDbContext CreateDbContext()
     {
       var optionsBuilder = new DbContextOptionsBuilder<MySqlDbContext>();
-      optionsBuilder.UseMySql(_configuration.GetConnectionString("MySql"), new MySqlServerVersion(new Version(8, 3, 0)));
+      optionsBuilder.UseMySql(_configuration.GetConnectionString(StaticConfiguration.MySql), new MySqlServerVersion(StaticConfiguration.MySqlVersion));
       return new MySqlDbContext(optionsBuilder.Options, _configuration);
     }
   }

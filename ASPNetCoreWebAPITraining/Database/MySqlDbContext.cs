@@ -12,11 +12,9 @@ namespace ASPNetCoreWebAPITraining.Database
             _configuration = configuration;
         }
 
-        
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql(_configuration.GetConnectionString("MySql"), new MySqlServerVersion(new Version(8, 3, 0)));
+            optionsBuilder.UseMySql(_configuration.GetConnectionString(StaticConfiguration.MySql), new MySqlServerVersion(StaticConfiguration.MySqlVersion));
         }
     }
 }
