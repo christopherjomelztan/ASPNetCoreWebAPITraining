@@ -2,7 +2,6 @@ using ASPNetCoreWebAPITraining.Database;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-// Test
 // Add services to the container.
 builder.Services.AddDbContext<MySqlDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("MySql"), new MySqlServerVersion(new Version(8, 3, 0)))
