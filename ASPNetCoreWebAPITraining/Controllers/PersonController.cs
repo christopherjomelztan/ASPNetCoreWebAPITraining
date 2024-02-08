@@ -1,5 +1,6 @@
-using ASPNetCoreWebAPITraining.Database;
-using ASPNetCoreWebAPITraining.Models;
+using Domain.Common;
+using Domain.Entities;
+using Infrastructure.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -44,7 +45,7 @@ namespace ASPNetCoreWebAPITraining.Controllers
         public async Task<IActionResult> PutPerson(int id, Person person)
         {
             using var context = _dbContextFactory.CreateDbContext();
-            if (id != person.Id)
+            if (id != ((BaseEntity)person).Id)
             {
                 return BadRequest();
             }

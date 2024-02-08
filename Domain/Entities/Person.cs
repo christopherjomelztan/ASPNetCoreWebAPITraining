@@ -6,7 +6,7 @@ namespace Domain.Entities
 {
     public class Person : BaseEntity
     {
-        public Person(int id) : base(id)
+        protected Person(int id) : base(id)
         {
         }
 

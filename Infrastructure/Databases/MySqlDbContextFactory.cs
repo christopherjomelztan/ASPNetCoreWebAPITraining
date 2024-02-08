@@ -1,6 +1,9 @@
+using Domain.Common;
+using Infrastructure.Abstractions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-namespace ASPNetCoreWebAPITraining.Database
+namespace Infrastructure.Databases
 {
   public class MySqlDbContextFactory : IDbContextFactory
   {

@@ -1,25 +1,9 @@
-using Domain.Common;
-using ASPNetCoreWebAPITraining.Database;
-using Microsoft.EntityFrameworkCore;
+using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
-// Register DbContext for EF Core
-builder.Services.AddDbContext<MySqlDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString(StaticConfiguration.MySql),new MySqlServerVersion(StaticConfiguration.MySqlVersion))
-);
-builder.Services.AddDbContext<SqlServerDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString(StaticConfiguration.SqlServer))
-);
-
 var provider = builder.Configuration.GetValue("Provider", string.Empty);
 
-builder.Services.AddTransient<IDbContextFactory>(_ => provider switch
-{
-    StaticConfiguration.MySql => new MySqlDbContextFactory(builder.Configuration),
-    StaticConfiguration.SqlServer => new SqlServerDbContextFactory(builder.Configuration),
-    _ => throw new Exception($"Unsupported provider: {provider}")
-});
-
+builder.Services.AddInfrastructure(builder.Configuration, provider!);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
