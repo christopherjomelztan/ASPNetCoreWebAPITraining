@@ -1,4 +1,4 @@
-using ASPNetCoreWebAPITraining.Models;
+using Domain.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASPNetCoreWebAPITraining.Database

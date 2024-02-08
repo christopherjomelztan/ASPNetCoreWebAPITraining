@@ -1,4 +1,4 @@
-namespace ASPNetCoreWebAPITraining
+namespace Domain.Common
 {
     /// <summary>
     /// This static class contains shared constants and readonly variables to be used within the solution to prevent duplications.
