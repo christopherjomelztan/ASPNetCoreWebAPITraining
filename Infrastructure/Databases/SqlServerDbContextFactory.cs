@@ -17,7 +17,10 @@ namespace Infrastructure.Databases
     public BaseDbContext CreateDbContext()
     {
       var optionsBuilder = new DbContextOptionsBuilder<SqlServerDbContext>();
-      optionsBuilder.UseSqlServer(_configuration.GetConnectionString(StaticConfiguration.SqlServer));
+
+      optionsBuilder.UseSqlServer(_configuration
+        .GetConnectionString(StaticConfiguration.SqlServer));
+        
       return new SqlServerDbContext(optionsBuilder.Options, _configuration);
     }
   }

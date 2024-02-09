@@ -17,7 +17,11 @@ namespace Infrastructure.Databases
     public BaseDbContext CreateDbContext()
     {
       var optionsBuilder = new DbContextOptionsBuilder<MySqlDbContext>();
-      optionsBuilder.UseMySql(_configuration.GetConnectionString(StaticConfiguration.MySql), new MySqlServerVersion(StaticConfiguration.MySqlVersion));
+
+      optionsBuilder.UseMySql(_configuration
+        .GetConnectionString(StaticConfiguration.MySql), 
+          new MySqlServerVersion(StaticConfiguration.MySqlVersion));
+      
       return new MySqlDbContext(optionsBuilder.Options, _configuration);
     }
   }
