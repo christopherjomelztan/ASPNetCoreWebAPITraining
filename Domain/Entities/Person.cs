@@ -9,7 +9,7 @@ namespace Domain.Entities
         protected Person(int id) : base(id)
         {
         }
-
+        
         public required string FirstName { get; set; }
 
         public required string LastName { get; set; }

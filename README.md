@@ -22,12 +22,12 @@
 4. Make sure to install .NET 8
 
 ## Steps: Creating the Database in MySQL
-1. Open the appsettings.json and appsettings.Development.json files and replace <empty> for both files with the MySQL Root Password that you set during the installation of MySQL otherwise when you run the command that updates the database it will throw an error as shown below:
+1. Open the appsettings.json and appsettings.Development.json files and replace <empty> for both files with the MySQL Root Password that you set during the installation of MySQL (ie: abcd) otherwise when you run the command that updates the database it will throw an error as shown below:
 Access denied for user 'root'@'localhost' (using password: YES)
 
 ``` sh
 "ConnectionStrings": {
-    "MySql": "Server=localhost;User ID=root;Password=abcd;Database=Training;",
+    "MySql": "Server=localhost;User ID=root;Password=<empty>;Database=Training;",
   },
 ```
 
@@ -88,4 +88,16 @@ dotnet ef migrations remove <migration_name> -s <api_path>  --context <fully_qua
 
 Example:
 dotnet ef database update -s ../ASPNetCoreWebAPITraining  --context Infrastructure.Databases.SqlServerDbContext
+```
+
+## Running the API
+
+``` sh 
+Syntax:
+cd <api_directory>
+dotnet run
+
+Example:
+cd ASPNetCoreWebAPITraining
+dotnet run
 ```

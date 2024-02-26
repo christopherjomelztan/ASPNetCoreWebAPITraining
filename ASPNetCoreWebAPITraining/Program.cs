@@ -7,17 +7,15 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 var provider = builder.Configuration.GetValue("Provider", string.Empty);
 
-builder.Services.AddInfrastructure(builder.Configuration, provider!);
-/*
 builder.Services.AddDbContext<MySqlDbContext>(options =>
             options.UseMySql(builder.Configuration.GetConnectionString(StaticConfiguration.MySql),
                 new MySqlServerVersion(StaticConfiguration.MySqlVersion))
         );
 
 builder.Services.AddDbContext<SqlServerDbContext>(options =>
-   options.UseSqlServer(builder.Configuration.GetConnectionString(StaticConfiguration.SqlServer))
+    options.UseSqlServer(builder.Configuration
+        .GetConnectionString(StaticConfiguration.SqlServer))
 );
-
 
 builder.Services.AddTransient<IDbContextFactory>(_ => provider switch
 {
@@ -25,7 +23,7 @@ builder.Services.AddTransient<IDbContextFactory>(_ => provider switch
     StaticConfiguration.SqlServer => new SqlServerDbContextFactory(builder.Configuration),
     _ => throw new Exception($"Unsupported provider: {provider}")
 });
-*/
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -34,7 +32,6 @@ builder.Services.AddSwaggerGen(c =>
 });
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
