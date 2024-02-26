@@ -1,11 +1,13 @@
-﻿using ASPNetCoreWebAPITraining.Models;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-namespace ASPNetCoreWebAPITraining.Database
+namespace Infrastructure.Databases
 {
-  public class BaseDbContext : DbContext
+    public class BaseDbContext : DbContext
   {
     private readonly IConfiguration _configuration;
+    
     public BaseDbContext(DbContextOptions options, IConfiguration configuration)
         : base(options)
     {

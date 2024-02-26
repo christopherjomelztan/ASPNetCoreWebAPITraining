@@ -2,16 +2,16 @@
 
 #nullable disable
 
-namespace ASPNetCoreWebAPITraining.SqlServerMigrations
+namespace Infrastructure.Persistence.Migrations.SqlServerMigrations
 {
     /// <inheritdoc />
-    public partial class _20240126_DynamicDbContextWork : Migration
+    public partial class DynamicDbContextWork : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Person",
+                name: "Persons",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -21,7 +21,7 @@ namespace ASPNetCoreWebAPITraining.SqlServerMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Person", x => x.Id);
+                    table.PrimaryKey("PK_Persons", x => x.Id);
                 });
         }
 
@@ -29,7 +29,7 @@ namespace ASPNetCoreWebAPITraining.SqlServerMigrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Person");
+                name: "Persons");
         }
     }
 }

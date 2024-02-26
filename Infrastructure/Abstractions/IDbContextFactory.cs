@@ -1,6 +1,6 @@
-using Microsoft.EntityFrameworkCore;
+using Infrastructure.Databases;
 
-namespace ASPNetCoreWebAPITraining.Database
+namespace Infrastructure.Abstractions
 {
   public interface IDbContextFactory
   {

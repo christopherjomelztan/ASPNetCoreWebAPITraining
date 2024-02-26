@@ -1,6 +1,9 @@
+using Domain.Common;
+using Infrastructure.Abstractions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-namespace ASPNetCoreWebAPITraining.Database
+namespace Infrastructure.Databases
 {
   public class SqlServerDbContextFactory : IDbContextFactory
   {
@@ -14,7 +17,10 @@ namespace ASPNetCoreWebAPITraining.Database
     public BaseDbContext CreateDbContext()
     {
       var optionsBuilder = new DbContextOptionsBuilder<SqlServerDbContext>();
-      optionsBuilder.UseSqlServer(_configuration.GetConnectionString(StaticConfiguration.SqlServer));
+
+      optionsBuilder.UseSqlServer(_configuration
+        .GetConnectionString(StaticConfiguration.SqlServer));
+        
       return new SqlServerDbContext(optionsBuilder.Options, _configuration);
     }
   }

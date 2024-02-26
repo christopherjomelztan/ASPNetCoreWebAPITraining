@@ -1,17 +1,21 @@
-using ASPNetCoreWebAPITraining;
-using ASPNetCoreWebAPITraining.Database;
+using Domain.Common;
+using Infrastructure;
+using Infrastructure.Abstractions;
+using Infrastructure.Databases;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-// Register DbContext for EF Core
-builder.Services.AddDbContext<MySqlDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString(StaticConfiguration.MySql),new MySqlServerVersion(StaticConfiguration.MySqlVersion))
-);
-builder.Services.AddDbContext<SqlServerDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString(StaticConfiguration.SqlServer))
-);
-
 var provider = builder.Configuration.GetValue("Provider", string.Empty);
+
+builder.Services.AddDbContext<MySqlDbContext>(options =>
+            options.UseMySql(builder.Configuration.GetConnectionString(StaticConfiguration.MySql),
+                new MySqlServerVersion(StaticConfiguration.MySqlVersion))
+        );
+
+builder.Services.AddDbContext<SqlServerDbContext>(options =>
+    options.UseSqlServer(builder.Configuration
+        .GetConnectionString(StaticConfiguration.SqlServer))
+);
 
 builder.Services.AddTransient<IDbContextFactory>(_ => provider switch
 {
@@ -28,7 +32,6 @@ builder.Services.AddSwaggerGen(c =>
 });
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();

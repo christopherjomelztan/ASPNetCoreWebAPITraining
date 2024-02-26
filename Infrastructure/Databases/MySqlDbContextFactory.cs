@@ -1,6 +1,9 @@
+using Domain.Common;
+using Infrastructure.Abstractions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-namespace ASPNetCoreWebAPITraining.Database
+namespace Infrastructure.Databases
 {
   public class MySqlDbContextFactory : IDbContextFactory
   {
@@ -14,7 +17,11 @@ namespace ASPNetCoreWebAPITraining.Database
     public BaseDbContext CreateDbContext()
     {
       var optionsBuilder = new DbContextOptionsBuilder<MySqlDbContext>();
-      optionsBuilder.UseMySql(_configuration.GetConnectionString(StaticConfiguration.MySql), new MySqlServerVersion(StaticConfiguration.MySqlVersion));
+
+      optionsBuilder.UseMySql(_configuration
+        .GetConnectionString(StaticConfiguration.MySql), 
+          new MySqlServerVersion(StaticConfiguration.MySqlVersion));
+      
       return new MySqlDbContext(optionsBuilder.Options, _configuration);
     }
   }

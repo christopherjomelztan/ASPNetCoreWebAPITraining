@@ -1,5 +1,6 @@
-using ASPNetCoreWebAPITraining.Database;
-using ASPNetCoreWebAPITraining.Models;
+using Domain.Common;
+using Domain.Entities;
+using Infrastructure.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -44,11 +45,8 @@ namespace ASPNetCoreWebAPITraining.Controllers
         public async Task<IActionResult> PutPerson(int id, Person person)
         {
             using var context = _dbContextFactory.CreateDbContext();
-            if (id != person.Id)
-            {
-                return BadRequest();
-            }
-
+            if (id != person.Id) return BadRequest();
+            
             context.Entry(person).State = EntityState.Modified;
 
             try
@@ -57,14 +55,8 @@ namespace ASPNetCoreWebAPITraining.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PersonExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                if (!PersonExists(id)) return NotFound();
+                else throw;
             }
 
             return NoContent();
@@ -87,11 +79,9 @@ namespace ASPNetCoreWebAPITraining.Controllers
         {
             using var context = _dbContextFactory.CreateDbContext();
             var person = await context.Persons.FindAsync(id);
-            if (person == null)
-            {
-                return NotFound();
-            }
-
+            
+            if (person == null) return NotFound();
+            
             context.Persons.Remove(person);
             await context.SaveChangesAsync();
 
