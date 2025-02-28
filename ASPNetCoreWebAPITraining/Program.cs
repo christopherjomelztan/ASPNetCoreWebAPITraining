@@ -10,6 +10,12 @@ builder.Services.AddDbContext<MySqlDbContext>(options =>
 builder.Services.AddDbContext<SqlServerDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString(StaticConfiguration.SqlServer))
 );
+builder.Services.AddDbContext<SQLite3DbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString(StaticConfiguration.SQLite3))
+);
+builder.Services.AddDbContext<MicrosoftAccessDbContext>(options =>
+    options.UseJet(builder.Configuration.GetConnectionString(StaticConfiguration.MicrosoftAccess))
+);
 
 var provider = builder.Configuration.GetValue("Provider", string.Empty);
 
@@ -17,6 +23,8 @@ builder.Services.AddTransient<IDbContextFactory>(_ => provider switch
 {
     StaticConfiguration.MySql => new MySqlDbContextFactory(builder.Configuration),
     StaticConfiguration.SqlServer => new SqlServerDbContextFactory(builder.Configuration),
+    StaticConfiguration.SQLite3 => new SQLite3DbContextFactory(builder.Configuration),
+    StaticConfiguration.MicrosoftAccess => new MicrosoftAccessDbContextFactory(builder.Configuration),
     _ => throw new Exception($"Unsupported provider: {provider}")
 });
 
