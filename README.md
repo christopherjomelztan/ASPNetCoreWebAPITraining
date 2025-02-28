@@ -31,7 +31,13 @@ Access denied for user 'root'@'localhost' (using password: YES)
   },
 ```
 
-2. Update the database using the command 
+2. Create migration files for desired database
+``` sh 
+Syntax:
+dotnet ef migrations add Initial --context SQLite3DbContext --output-dir SQLite3Migrations
+```
+
+3. Update the database using the command 
 ``` sh 
 Syntax:
 dotnet ef database update --context MySqlDbContext
