@@ -6,7 +6,7 @@
 - [Steps](#steps)
 
 ## Introduction
-
+This is just a training project to play with DotNet Core API. All packages except for the SDK is installed within.
 ## Prerequisites
 - .NET 8
 - SQL Server
@@ -19,28 +19,30 @@
     Command: git clone <Clone using the web URL>
 ```
 3. Open the project folder using VS Code 
-4. Make sure to install .NET 8
+4. Make sure to install .NET 9
 
-## Steps: Creating the Database in MySQL
-1. Open the appsettings.json and appsettings.Development.json files and replace <empty> for both files with the MySQL Root Password that you set during the installation of MySQL otherwise when you run the command that updates the database it will throw an error as shown below:
-Access denied for user 'root'@'localhost' (using password: YES)
+## Steps: Creating the Database in SQLite3
+1. Navigate to ASPNetCoreWebAPITraining/ASPNetCoreWebAPITraining
+
+
+2. Open the appsettings.json and appsettings.Development.json files and replace <empty> for both files with the SQLite3 database path. You may need to put in different details depending on the database used.
 
 ``` sh
 "ConnectionStrings": {
-    "MySql": "Server=localhost;User ID=root;Password=abcd;Database=Training;",
+    "SQLite3": "Data Source=C:\\Users\\Databases\\DatabaseName.db;"
   },
 ```
 
-2. Create migration files for desired database
+3. Create migration files for desired database
 ``` sh 
 Syntax:
 dotnet ef migrations add Initial --context SQLite3DbContext --output-dir SQLite3Migrations
 ```
 
-3. Update the database using the command 
+4. Update the database using the command 
 ``` sh 
 Syntax:
-dotnet ef database update --context MySqlDbContext
+dotnet ef database update --context SQLite3DbContext
 ```
 
 * We're using the --context to specify which context provider to use in order to apply the migration.
