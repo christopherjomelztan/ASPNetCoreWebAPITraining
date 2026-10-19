@@ -1,17 +1,20 @@
-﻿using ASPNetCoreWebAPITraining.Models;
+using ASPNetCoreWebAPITraining.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASPNetCoreWebAPITraining.Database
 {
   public class BaseDbContext : DbContext
   {
-    private readonly IConfiguration _configuration;
-    public BaseDbContext(DbContextOptions options, IConfiguration configuration)
+    public BaseDbContext(DbContextOptions options)
         : base(options)
     {
-      _configuration = configuration;
     }
 
     public DbSet<Person> Persons { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+      modelBuilder.Entity<Person>().HasData(SeedData.Persons);
+    }
   }
 }

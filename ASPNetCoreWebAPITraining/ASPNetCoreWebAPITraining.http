@@ -1,6 +1,34 @@
 @ASPNetCoreWebAPITraining_HostAddress = http://localhost:5288
 
-GET {{ASPNetCoreWebAPITraining_HostAddress}}/weatherforecast/
+GET {{ASPNetCoreWebAPITraining_HostAddress}}/api/Person
 Accept: application/json
 
 ###
+
+GET {{ASPNetCoreWebAPITraining_HostAddress}}/api/Person/1
+Accept: application/json
+
+###
+
+POST {{ASPNetCoreWebAPITraining_HostAddress}}/api/Person
+Content-Type: application/json
+
+{
+  "firstName": "Katherine",
+  "lastName": "Johnson"
+}
+
+###
+
+PUT {{ASPNetCoreWebAPITraining_HostAddress}}/api/Person/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "Augusta Ada",
+  "lastName": "Lovelace"
+}
+
+###
+
+DELETE {{ASPNetCoreWebAPITraining_HostAddress}}/api/Person/5

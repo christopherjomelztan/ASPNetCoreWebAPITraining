@@ -16,7 +16,7 @@ namespace ASPNetCoreWebAPITraining.SqlServerMigrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "10.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -42,6 +42,38 @@ namespace ASPNetCoreWebAPITraining.SqlServerMigrations
                     b.HasKey("Id");
 
                     b.ToTable("Person");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FirstName = "Ada",
+                            LastName = "Lovelace"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FirstName = "Grace",
+                            LastName = "Hopper"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FirstName = "Alan",
+                            LastName = "Turing"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FirstName = "Margaret",
+                            LastName = "Hamilton"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FirstName = "Linus",
+                            LastName = "Torvalds"
+                        });
                 });
 #pragma warning restore 612, 618
         }

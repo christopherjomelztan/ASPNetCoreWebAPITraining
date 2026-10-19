@@ -14,7 +14,7 @@ namespace ASPNetCoreWebAPITraining.SQLite3Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.13");
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.13");
 
             modelBuilder.Entity("ASPNetCoreWebAPITraining.Models.Person", b =>
                 {
@@ -35,6 +35,38 @@ namespace ASPNetCoreWebAPITraining.SQLite3Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Person");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FirstName = "Ada",
+                            LastName = "Lovelace"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FirstName = "Grace",
+                            LastName = "Hopper"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FirstName = "Alan",
+                            LastName = "Turing"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FirstName = "Margaret",
+                            LastName = "Hamilton"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FirstName = "Linus",
+                            LastName = "Torvalds"
+                        });
                 });
 #pragma warning restore 612, 618
         }

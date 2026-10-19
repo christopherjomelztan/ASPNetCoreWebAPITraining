@@ -482,3 +482,13 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Local SQLite training databases
+*.db
+*.db-shm
+*.db-wal
+# Local Microsoft Access training databases
+*.accdb
+*.laccdb
+*.mdb
+*.ldb

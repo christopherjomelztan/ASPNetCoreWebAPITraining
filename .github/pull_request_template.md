@@ -19,4 +19,3 @@
 - [x] Chrome
 - [x] Firefox
 - [x] Edge
-- [x] Internet Explorer
