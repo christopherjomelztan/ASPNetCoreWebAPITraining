@@ -35,6 +35,14 @@ public sealed class ApiDocumentationTests : IClassFixture<SQLite3ApiFactory>
     }
 
     [Fact]
+    public async Task Redoc_LoadsAPinnedClassicScriptBundle()
+    {
+        var html = await _client.GetStringAsync("/redoc");
+
+        Assert.Matches(@"<script src=""https://cdn\.redoc\.ly/redoc/v2\.\d+\.\d+/bundles/redoc\.standalone\.js""></script>", html);
+    }
+
+    [Fact]
     public async Task SwaggerUi_IsNoLongerServed()
     {
         var response = await _client.GetAsync("/swagger/index.html");

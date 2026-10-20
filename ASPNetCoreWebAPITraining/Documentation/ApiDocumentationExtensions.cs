@@ -15,7 +15,7 @@ public static class ApiDocumentationExtensions
         </head>
         <body>
             <redoc spec-url="{{OpenApiDocumentUrl}}"></redoc>
-            <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+            <script src="https://cdn.redoc.ly/redoc/v2.5.2/bundles/redoc.standalone.js"></script>
         </body>
         </html>
         """;
